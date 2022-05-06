@@ -12,9 +12,11 @@
 */
 
 const solution = (firstNum, secondNum, thirdNum) => {
-  if (firstNum > secondNum && firstNum > thirdNum) return firstNum;
-  if (secondNum > thirdNum && secondNum > firstNum) return secondNum;
-  if (thirdNum > secondNum && thirdNum > firstNum) return thirdNum;
+  let answer = "";
+  if (firstNum < secondNum) answer = firstNum;
+  else answer = secondNum;
+  if (thirdNum < answer) answer = thirdNum;
+  return answer;
 };
 
-console.log(solution(23, 42, 7));
+console.log(solution(6, 5, 11));
