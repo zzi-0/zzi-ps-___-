@@ -11,20 +11,14 @@
 */
 
 const solution = (firstLen, secondLen, thirdLen) => {
-  let longestLen = firstLen;
-  let shortSumLen = secondLen + thirdLen;
+  let max = firstLen;
+  const sum = firstLen + secondLen + thirdLen;
 
-  if (secondLen > thirdLen && secondLen > firstLen) {
-    longestLen = secondLen;
-    shortSumLen = firstLen + thirdLen;
-  }
+  if (firstLen > secondLen) max = firstLen;
+  else max = secondLen;
+  if (thirdLen > max) max = thirdLen;
 
-  if (thirdLen > secondLen && thirdLen > firstLen) {
-    longestLen = thirdLen;
-    shortSumLen = secondLen + firstLen;
-  }
-
-  return longestLen < shortSumLen ? "YES" : "NO";
+  return sum - max > max ? "YES" : "NO";
 };
 
-console.log(solution(23, 42, 7));
+console.log(solution(6, 7, 11));
