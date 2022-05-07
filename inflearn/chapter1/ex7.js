@@ -13,7 +13,7 @@
 
 */
 
-const solution = (day, ...number) => {
+const solution = (day, number) => {
   const array = number
     .sort(function (a, b) {
       return a - b;
@@ -24,4 +24,4 @@ const solution = (day, ...number) => {
   console.log(array.length);
 };
 
-solution(3, 25, 23, 11, 47, 53, 17, 33);
+solution(3, [25, 23, 11, 47, 53, 17, 33]);
