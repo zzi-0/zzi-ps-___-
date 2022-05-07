@@ -11,11 +11,11 @@
 
 */
 
-const solution = (...number) => {
+const solution = (number) => {
   const array = number.sort(function (a, b) {
     return a - b;
   });
   return array[0];
 };
 
-console.log(solution(1, 15, 42, 81, 7, 24, 56));
+console.log(solution([1, 15, 42, 81, 7, 24, 56]));
