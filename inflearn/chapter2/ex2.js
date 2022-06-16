@@ -9,7 +9,6 @@
 
 ▣ 출력설명
 선생님이 볼 수 있는 최대학생수를 출력한다.
-
 */
 
 const solution = (number, numberArray) => {
