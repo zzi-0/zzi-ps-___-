@@ -12,7 +12,10 @@
 */
 
 const solution = (number, numberArray) => {
-  let result = [];
+  let result = [numberArray[0]];
+  for (let i = 1; i < number; i++) {
+    if (result[result.length - 1] < numberArray[i]) result.push(numberArray[i]);
+  }
   return result;
 };
 
