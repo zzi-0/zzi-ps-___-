@@ -13,12 +13,12 @@ N(1<=N<=100)명의 학생의 국어점수가 입력되면 각 학생의 등수�
 */
 
 const solution = (number, array) => {
-  let result = [1, 1, 1, 1, 1];
+  let result = [];
 
   for (let i = 0; i < number; i++) {
-    let ranking = 6;
+    let ranking = 1;
     for (let j = 0; j < number; j++) {
-      if (array[i] >= array[j]) ranking = ranking - 1;
+      if (array[i] < array[j]) ranking = ranking + 1;
     }
     result[i] = ranking;
   }
