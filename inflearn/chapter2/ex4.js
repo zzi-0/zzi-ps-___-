@@ -13,7 +13,12 @@ OX 문제는 맞거나 틀린 두 경우의 답을 가지는 문제를 말한다
 */
 
 const solution = (number, array) => {
-  let result = [];
+  let result = 0;
+  let beforeScore = 0;
+  for (let i = 0; i < number; i++) {
+    array[i] === 1 ? (beforeScore = beforeScore + 1) : (beforeScore = 0);
+    result = result + beforeScore;
+  }
   return result;
 };
 
