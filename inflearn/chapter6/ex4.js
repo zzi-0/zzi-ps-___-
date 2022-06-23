@@ -12,8 +12,30 @@
 */
 
 const solution = (str) => {
-  let result = "";
-  return result;
+  let stack = [];
+  let lt = 0;
+  let rt = 0;
+  for (let x of str) {
+    if (!isNaN(x)) stack.push(Number(x));
+    else {
+      rt = stack.pop();
+      lt = stack.pop();
+      if (x === "+") {
+        stack.push(lt + rt);
+      }
+      if (x === "*") {
+        stack.push(lt * rt);
+      }
+      if (x === "-") {
+        stack.push(lt - rt);
+      }
+      if (x === "/") {
+        stack.push(lt / rt);
+      }
+    }
+  }
+
+  return stack[0];
 };
 
 console.log(solution("352+*9-"));
