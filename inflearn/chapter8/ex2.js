@@ -15,11 +15,8 @@
 function solution(number) {
   let answer = "";
   function dfs(n) {
-    if (n / 2 < 1) return;
-    if (n / 2 === 1) {
-      answer += 1;
-      answer += parseInt(n % 2);
-    } else {
+    if (n === 0) return;
+    else {
       dfs(parseInt(n / 2));
       answer += parseInt(n % 2);
     }
