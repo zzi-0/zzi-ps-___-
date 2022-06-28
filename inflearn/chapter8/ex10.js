@@ -32,7 +32,7 @@ function solution(n, m, array) {
     }
   }
   dfs(0);
-  return JSON.stringify(answer);
+  return answer;
 }
 
 console.log(solution(3, 2, [3, 6, 9]));
