@@ -1,5 +1,3 @@
-let input = require("fs").readFileSync("/dev/stdin").toString().split(" ");
-
 function solution(year) {
   /*
 연도가 주어졌을 때, 윤년이면 1, 아니면 0을 출력하는 프로그램을 작성하시오.
@@ -11,4 +9,4 @@ function solution(year) {
   return 0;
 }
 
-console.log(solution(Number(input[0])));
+console.log(solution(2000));
