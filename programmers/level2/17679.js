@@ -1,5 +1,3 @@
-const isEqual = (a, b) => a.length === b.length && a.every((v, i) => v === b[i]);
-
 function solution(m, n, board) {
     let popIndex = [];
     board = board.map((v) => v.split(''));
@@ -42,7 +40,6 @@ function solution(m, n, board) {
                 }
             }
         }
-        // console.log(board);
     }
     return [].concat(...board).filter((v) => !v).length;
 }
