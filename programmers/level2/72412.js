@@ -1,34 +1,51 @@
-function solution(info, query) {
-    var answer = [];
-    let conditionList = [];
-    for (const q of query) {
-        const condition = q.split(' ');
-        let a = [];
-        for (const c of condition) {
-            if (c !== '-' && c !== 'and') a.push(c);
+const solution = (info, query) => {
+    let answer = [];
+    const map = {};
+
+    const combination = (cnt, key, arr, score) => {
+        if (cnt === 4) {
+            if (!map[key]) map[key] = [score];
+            else map[key].push(score);
+            return;
         }
-        conditionList.push(a);
+        combination(cnt + 1, key + arr[cnt], arr, score);
+        combination(cnt + 1, key + '-', arr, score);
+    };
+
+    for (const i of info) {
+        const arr = i.split(' ');
+        const score = Number(arr.pop());
+        combination(0, '', arr, score);
     }
 
-    for (const c of conditionList) {
-        let count = 0;
-        let a = info.map((i) =>
-            c.every((x) => {
-                if (isNaN(x)) {
-                    return i.includes(x);
-                } else {
-                    return Number(x) <= i.split(' ')[4];
+    for (const key in map) {
+        map[key].sort((a, b) => a - b);
+    }
+
+    for (let i = 0; i < query.length; i++) {
+        const arr = query[i].replace(/ and /g, ' ').split(' ');
+        const score = Number(arr.pop());
+        const key = arr.join('');
+        const scoreArray = map[key];
+
+        if (scoreArray) {
+            let left = 0;
+            let right = scoreArray.length;
+            while (left < right) {
+                const mid = parseInt((left + right) / 2);
+                if (scoreArray[mid] >= score) {
+                    right = mid;
+                } else if (scoreArray[mid] < score) {
+                    left = mid + 1;
                 }
-            })
-        );
-        for (const result of a) {
-            if (result) count++;
+            }
+            answer.push(scoreArray.length - left);
+        } else {
+            answer.push(0);
         }
-        answer.push(count);
     }
-
     return answer;
-}
+};
 
 console.log(
     solution(
