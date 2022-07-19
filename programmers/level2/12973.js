@@ -1,24 +1,14 @@
 function solution(s) {
-    var answer = 1;
-    let beforeStr = '';
+    const arr = [];
 
-    let str = s.split('');
-    while (answer) {
-        for (let i = 0; i < str.length - 1; i++) {
-            if (str[i] === str[i + 1]) {
-                str.splice(i - 1, 2);
-                i--;
-                i--;
-            }
+    for (let i = 0; i < s.length; i++) {
+        arr.push(s[i]);
+        if (arr[arr.length - 1] === arr[arr.length - 2]) {
+            arr.pop();
+            arr.pop();
         }
-        if (str.length === 0) break;
-        if (beforeStr.length === str.length) {
-            answer = 0;
-            break;
-        }
-        beforeStr = [...str];
     }
 
-    return answer;
+    return arr.join('') === '' ? 1 : 0;
 }
 console.log(solution('dccddd'));
