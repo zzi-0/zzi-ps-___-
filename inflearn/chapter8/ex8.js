@@ -11,20 +11,24 @@
 */
 
 function solution(n, m) {
-  let answer = [];
-  let tmp = Array.from({ length: m }, () => 0);
-  function dfs(v) {
-    if (v === m) {
-      answer.push(tmp.slice());
-    } else {
-      for (let i = 1; i <= n; i++) {
-        tmp[v] = i;
-        dfs(v + 1);
-      }
+    let answer = [];
+    let array = Array.from({ length: m }, () => 0);
+
+    function dfs(v) {
+        if (v > m) return;
+        if (v === m) {
+            answer.push([...array]);
+        } else {
+            for (let i = 1; i <= n; i++) {
+                array[v] = i;
+                dfs(v + 1);
+            }
+        }
     }
-  }
-  dfs(0);
-  return answer;
+
+    dfs(0);
+
+    return answer;
 }
 
 console.log(solution(3, 2));

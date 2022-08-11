@@ -13,20 +13,16 @@
 */
 
 function solution(n, array, m) {
-  let answer = 100000;
-  function dfs(v, sum) {
-    if (sum > m) return;
-    if (answer <= v) return;
-    if (sum === m) {
-      answer = Math.min(answer, v);
-    } else {
-      for (let i = 0; i < n; i++) {
-        dfs(v + 1, sum + array[i]);
-      }
+    let answer = '';
+    function dfs(v, sum) {
+        if (sum > m) return;
+        if (sum === m) return (answer = v);
+        for (let i = 0; i < n; i++) {
+            dfs(v + 1, sum + array[i]);
+        }
     }
-  }
-  dfs(0, 0);
-  return answer;
+    dfs(0, 0);
+    return answer;
 }
 
 console.log(solution(3, [1, 2, 5], 15));

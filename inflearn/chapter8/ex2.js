@@ -13,16 +13,14 @@
 */
 
 function solution(number) {
-  let answer = "";
-  function dfs(n) {
-    if (n === 0) return;
-    else {
-      dfs(parseInt(n / 2));
-      answer += parseInt(n % 2);
+    let answer = '';
+    function dfs(n) {
+        if (n === 0) return answer;
+        dfs(parseInt(n / 2));
+        answer += n % 2;
     }
-  }
-  dfs(number);
-  return answer;
+    dfs(number);
+    return answer;
 }
 
 console.log(solution(11));

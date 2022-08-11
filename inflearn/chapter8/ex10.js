@@ -14,25 +14,24 @@
 */
 
 function solution(n, m, array) {
-  let answer = [];
-  let tmp = Array.from({ length: m }, () => 0);
-  let check = Array.from({ length: n }, () => 0);
-  function dfs(v) {
-    if (v === m) {
-      answer.push(tmp.slice());
-    } else {
-      for (let i = 0; i < n; i++) {
-        if (check[i] === 0) {
-          check[i] = 1;
-          tmp[v] = array[i];
-          dfs(v + 1);
-          check[i] = 0;
+    let answer = [];
+    let arr = [];
+    let check = [];
+    function dfs(v) {
+        if (v === m) answer.push([...arr]);
+        else {
+            for (let i = 0; i < n; i++) {
+                if (!check[i]) {
+                    arr[v] = array[i];
+                    check[i] = 1;
+                    dfs(v + 1);
+                    check[i] = 0;
+                }
+            }
         }
-      }
     }
-  }
-  dfs(0);
-  return answer;
+    dfs(0);
+    return answer;
 }
 
 console.log(solution(3, 2, [3, 6, 9]));

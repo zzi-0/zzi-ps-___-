@@ -11,24 +11,24 @@
 */
 
 function solution(number) {
-  let answer = [];
-  let check = Array.from({ length: number + 1 }, () => 0);
-  function dfs(v) {
-    if (v === number + 1) {
-      let tmp = "";
-      for (let i = 0; i <= number; i++) {
-        if (check[i] === 1) tmp += i + " ";
-      }
-      answer.push(tmp.trim());
-    } else {
-      check[v] = 1;
-      dfs(v + 1);
-      check[v] = 0;
-      dfs(v + 1);
+    let answer = [];
+    let check = Array.from({ length: number + 1 }, () => 0);
+    function dfs(v) {
+        if (v === number + 1) {
+            let tmp = '';
+            for (let i = 0; i <= number; i++) {
+                if (check[i] === 1) tmp += i + ' ';
+            }
+            answer.push(tmp.trim());
+        } else {
+            check[v] = 1;
+            dfs(v + 1);
+            check[v] = 0;
+            dfs(v + 1);
+        }
     }
-  }
-  dfs(1);
-  return answer;
+    dfs(1);
+    return answer;
 }
 
 console.log(solution(3));

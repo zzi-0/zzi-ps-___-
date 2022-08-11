@@ -13,12 +13,12 @@
 */
 
 function solution(number) {
-  function dfs(level) {
-    if (level === 0) return;
-    dfs(level - 1);
-    console.log(level);
-  }
-  dfs(number);
+    function dfs(n) {
+        if (n > number) return;
+        console.log(n);
+        dfs(n + 1);
+    }
+    dfs(1);
 }
 
 solution(3);

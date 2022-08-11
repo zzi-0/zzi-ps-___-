@@ -15,25 +15,26 @@
 */
 
 function solution(n, m, array) {
-  let answer = 0;
-  function dfs(v, sum, time) {
-    if (v === n) {
-      if (answer < sum && time <= m) answer = sum;
-    } else {
-      dfs(v + 1, sum + array[v][0], time + array[v][1]);
-      dfs(v + 1, sum, time);
+    let answer = [];
+    function dfs(v, time, score) {
+        if (v > n || time > m) return;
+        if (v === n) answer.push(score);
+        else {
+            const [s, t] = array[v];
+            dfs(v + 1, time + t, score + s);
+            dfs(v + 1, time, score);
+        }
     }
-  }
-  dfs(0, 0, 0);
-  return answer;
+    dfs(0, 0, 0);
+    return Math.max(...answer);
 }
 
 console.log(
-  solution(5, 20, [
-    [10, 5],
-    [25, 12],
-    [15, 8],
-    [6, 3],
-    [7, 4],
-  ])
+    solution(5, 20, [
+        [10, 5],
+        [25, 12],
+        [15, 8],
+        [6, 3],
+        [7, 4],
+    ])
 );

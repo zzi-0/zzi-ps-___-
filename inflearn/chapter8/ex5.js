@@ -14,23 +14,18 @@ N개의 원소로 구성된 자연수 집합이 주어지면, 이 집합을 두 
 */
 
 function solution(array) {
-  let answer = "NO";
-  let totalSum = array.reduce((a, b) => a + b, 0);
-  let flag = 0;
-  function dfs(v, sum) {
-    if (flag === 1) return;
-    if (v === array.length) {
-      if (totalSum - sum === sum) {
-        answer = "YES";
-        flag = 1;
-      }
-    } else {
-      dfs(v + 1, sum + array[v]);
-      dfs(v + 1, sum);
+    let answer = 'NO';
+    const halfsum = array.reduce((a, b) => (a += b)) / 2;
+    function dfs(v, sum) {
+        if (sum > halfsum || v > array.length + 1) return;
+        if (v === array.length && sum === halfsum) answer = 'YES';
+        else {
+            dfs(v + 1, sum);
+            dfs(v + 1, sum + array[v]);
+        }
     }
-  }
-  dfs(0, 0);
-  return answer;
+    dfs(0, 0);
+    return answer;
 }
 
 console.log(solution([1, 3, 5, 6, 7, 10]));

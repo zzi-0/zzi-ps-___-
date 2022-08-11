@@ -12,17 +12,18 @@ N마리의 바둑이와 각 바둑이의 무게 W가 주어지면, 철수가 트
 */
 
 function solution(c, n, array) {
-  let answer = 0;
-  function dfs(v, sum) {
-    if (v === n + 1) {
-      if (answer < sum && sum < c) answer = sum;
-    } else {
-      dfs(v + 1, sum + array[v]);
-      dfs(v + 1, sum);
+    let answer = [];
+    function dfs(v, sum) {
+        if (v === n + 1 || c < sum) return;
+        if (v === n && c >= sum) answer.push(sum);
+        else {
+            console.log(v, sum, array[v]);
+            dfs(v + 1, sum);
+            dfs(v + 1, sum + array[v]);
+        }
     }
-  }
-  dfs(0, 0);
-  return answer;
+    dfs(0, 0);
+    return Math.max(...answer);
 }
 
-console.log(solution(259, 5, [81, 58, 42, 33, 61]));
+console.log(solution(300, 5, [81, 58, 42, 33, 61]));
