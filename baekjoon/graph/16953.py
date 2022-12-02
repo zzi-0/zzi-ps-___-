@@ -7,26 +7,23 @@ input = sys.stdin.readline
 # m,n = 100,40021
 m,n = map(int, input().split())
 queue = deque()
-q = deque()
 
-queue.append([n,1])
+queue.append([m,1])
 
 while queue:
     A,count = queue.popleft()
-    # print(A)
 
-    if A == m:
+    if A == n:
         print(count)
         break
+    if A > n:
+        continue
+    
+    B = A * 2
+    queue.append([B,count+1])
+    
+    B = int(str(A) + "1")
+    queue.append([B,count+1])
 
-    if A != 0 and A % 2 == 0:
-        B = A / 2
-        queue.append([B,count+1])
-    elif A % 10 == 1:
-        B = A // 10
-        queue.append([B,count+1])
-    else:
-        print(-1)
-        break
-
-# 4 41 82 821 8211
+else: 
+    print(-1)
