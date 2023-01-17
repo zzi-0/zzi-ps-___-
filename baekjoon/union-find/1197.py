@@ -8,7 +8,7 @@ infos = [[1, 2, 4],
 
 """ V,E = map(int,input().split())
 infos = [list(map(int, input().split())) for _ in range(E)] """
-# infos.sort(key=lambda x:x[2])
+infos.sort(key=lambda x:x[2])
 ans = 0
 
 parent = [0 for _ in range(V+1)]
