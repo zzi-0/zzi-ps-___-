@@ -7,7 +7,6 @@ roads = [[1, 2, 1],
 INF = int(1e9)
 ans = INF
 
-
 graph = [[INF for _ in range(V+1)] for _ in range(V+1)]
 
 for i in range(V):
