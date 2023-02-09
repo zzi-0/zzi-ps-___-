@@ -11,25 +11,19 @@ bus = [[1, 2, 2],[1, 2, 5],
 [3, 5, 1],
 [4, 5, 3]]
 start, end = 1, 5
-
 INF = int(1e9)
-
-distance = [INF]*(n+1)
-
+distance = [INF] * (n+1)
 graph = [[] for _ in range(n+1)]
 
-for i in range(m):
-    s,e,c = bus[i]
+for [s,e,c] in bus:
     graph[s].append((e,c))
-
-
 
 def dijkstra(start):
     q = []
     heapq.heappush(q,(0,start))
     distance[start] = 0
     while q:
-        dist, now = heapq.heappop(q)
+        dist,now = heapq.heappop(q)
         if distance[now] < dist:
             continue
         for s,c in graph[now]:
@@ -37,6 +31,7 @@ def dijkstra(start):
             if cost < distance[s]:
                 distance[s] = cost
                 heapq.heappush(q,(cost,s))
+
 
 dijkstra(start)
 print(distance[end])
