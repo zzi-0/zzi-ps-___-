@@ -19,7 +19,8 @@ for i in range(k):
         [r, c, m, s, d] = fireballs.pop()
         nr = (r + dx[d] * s) % n
         nc = (c + dy[d] * s) % n
-        board[nr][nc].append([m,s,d])
+        if 0 <= nr < n and 0 <= nc < n:
+            board[nr][nc].append([m,s,d])
 
     for row in range(n):
         for col in range(n):
