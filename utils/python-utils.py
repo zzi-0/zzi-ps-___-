@@ -1,9 +1,31 @@
 # 정렬
+# NOTE
 arr = [[0,0,3],[0,0,46],[0,0,2],[0,0,1]]
 arr.sort(key=lambda x:x[2],reverse=True)
 print(arr) # [[0, 0, 46], [0, 0, 3], [0, 0, 2], [0, 0, 1]]
 
+# 리스트 관련 메서드
+a = [2, 3, 4]
+
+# 추가
+a.append(1) # [2, 3, 4, 1]
+
+# 정렬
+a.sort() # 오름차순 [1, 2, 3, 4]
+a.sort(reverse = True) # 내림차순 [4, 3, 2, 1]
+a.reverse() # 뒤집기 [1, 2, 3, 4]
+
+# 삽입 (idx, value)
+a.insert(1, 2) # [1, 2, 2, 3, 4]
+
+# 개수
+a.count(2) # 2
+
+# 제거 ( 앞에서 가장 먼저 나오는 하나만 제거)
+a.remove(2) # [1, 2, 3, 4]
+
 # 다익스트라
+# NOTE
 import heapq
 
 n = 5
@@ -29,7 +51,7 @@ def dijkstra(start):
     heapq.heappush(q,(0,start))
     distance[start] = 0
     while q:
-        dist,now = heapq.heappop()
+        dist,now = heapq.heappop(q)
         if distance[now] < dist:
             continue
         for s,c in graph[now]:
@@ -40,8 +62,8 @@ def dijkstra(start):
 
 dijkstra(start)
 
-
 # union-find
+# NOTE
 V = 5
 parent = [0 for _ in range(V+1)]
 
@@ -108,6 +130,10 @@ print(one_d) # [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 two_d = [[0] * 10 for _ in range(2)]
 print(two_d) # [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
 
+# 리스트 컴프리헨션
+array = [i for i in range(20) if i % 2 == 1]
+array = [i*i for i in range(1,10)]
+
 # 큐
 from collections import deque
 queue = deque()
@@ -119,3 +145,68 @@ print(s_list) # ['a', 'b', 'c', 'd']
 
 j_list = ''.join(s_list)
 print(j_list) # abcd
+
+# 문자열 자르기
+a = "ABCDEF"
+
+print(a[2:4]) #CD
+
+# dict
+dict = {}
+dict['name'] = 'zzi'
+dict['age'] = 25
+name = dict.get('name')
+del dict['name']
+for key in dict:
+    print(key,dict[key])
+
+# set
+s = set()
+s.add('a')
+s.update(['a', 'b', 'c']) # 여러 개의 값 추가
+s.remove('b')
+print(s)
+
+# 컴퓨터는 2진수 체계이기 때문에 실수 덧셈을 정확히 하지 못한다. 보통 5째 자리에서 반올림 하면된다.
+a = 0.3 + 0.6
+print(round(a,4))
+
+# 나눗셈 관련
+a = 7
+b = 3
+# 나누기
+print(a / b)
+# 나머지
+print(a % b)
+# 몫
+print(a // b)
+
+# copy 
+import copy 
+
+arr1 = [1, 2, [99, 88, 77], 3]
+arr2 = copy.deepcopy(arr1) 
+
+# 수학
+import math
+
+print(math.factorial(5)) # 5 팩토리얼 출력
+print(math.sqrt(7)) # 7의 제곱근 출력
+print(math.gcd(21,14)) # 21과 14의 최대 공약수 , 7
+
+# 합
+sum([1, 2, 3]) # 6
+
+# 최소값, 최대값
+min(1, 2, 3) # 1
+max(1, 2, 3) # 3
+
+# Counter => 등장 횟수를 세는 기능을 제공한다.
+from collections import Counter
+
+counter = Counter([1, 1, 1, 2, 2, 3])
+
+print(counter[1])
+print(counter[2])
+print(counter[3])
+
