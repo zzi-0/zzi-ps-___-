@@ -210,3 +210,22 @@ print(counter[1])
 print(counter[2])
 print(counter[3])
 
+
+# 2차원 배열 돌리기
+def rotated(sticker):
+    list_of_tuples = zip(*sticker[::-1])
+    return [list(elem) for elem in list_of_tuples]
+
+# 루프문 탈출하기
+class LoopBreak(Exception):
+    pass
+
+for index in range(5):
+    try:
+        for i in range(n-r+1):
+            for j in range(m-c+1):
+                # 어떤 조건
+                if True:
+                    raise LoopBreak()
+    except LoopBreak:
+        break
