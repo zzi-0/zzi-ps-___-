@@ -1,13 +1,17 @@
-from itertools import combinations, product
+from collections import defaultdict
 
 def solution(weights):
     answer = 0
-    weights.sort()
-    for [c1, c2] in combinations(weights,2):
-        for [p1, p2] in product([2,3,4], repeat=2):
-            if c1*p1 == c2*p2:
-                answer += 1
-                break
+    info = defaultdict(int)
+    for w in weights:
+        answer += info[w]
+        answer += info[w*2]
+        answer += info[w/2]
+        answer += info[(w*2)/3]
+        answer += info[(w*3)/2] 
+        answer += info[(w*4)/3]
+        answer += info[(w*3)/4]
+        info[w] += 1
     return answer
 
 print(solution([100,180,360,100,270]))
