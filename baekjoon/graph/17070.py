@@ -6,24 +6,22 @@ board = [[0, 0, 0,0,0,0],[0, 1, 0, 0, 0, 0],
 [0, 0, 0, 0, 0, 0]]
 visited = [[0] * n for _ in range(n)]
 ans = 0
-dp = [[[0 for _ in range(n)] for _ in range(n)] for _ in range(3)]
+dp = [[[0 for _ in range(3)] for _ in range(n)] for _ in range(n)]
 
-dp[0][0][1] = 1
-for i in range(2, n):
+# row col direction
+dp[0][1][0] = 1
+
+for i in range(2,n):
     if board[0][i] == 0:
-        dp[0][0][i] = dp[0][0][i - 1]
+        dp[0][i][0] = dp[0][i-1][0]
 
-for r in range(1, n):
-    for c in range(1, n):
-        # 대각선 파이프를 추가하는 과정
-        if board[r][c] == 0 and board[r][c - 1] == 0 and board[r - 1][c] == 0:
-            dp[1][r][c] = dp[0][r - 1][c - 1] + dp[1][r - 1][c - 1] + dp[2][r - 1][c - 1]
-            
-        # 가로, 세로 파이프를 추가하는 과정
-        if board[r][c] == 0:
-            dp[0][r][c] = dp[0][r][c - 1] + dp[1][r][c - 1]
-            dp[2][r][c] = dp[2][r - 1][c] + dp[1][r - 1][c]
-
+for i in range(1,n):
+    for j in range(1,n):
+        if board[i][j] == 0 and board[i-1][j] == 0 and board[i][j-1] == 0:
+           dp[i][j][2] = dp[i-1][j-1][0] + dp[i-1][j-1][1] + dp[i-1][j-1][2]
+        if board[i][j] == 0:
+           dp[i][j][1] = dp[i-1][j][1] + dp[i-1][j][2]
+           dp[i][j][0] = dp[i][j-1][0] + dp[i][j-1][2]
 
 # 최종 결과 출력
-print(sum(dp[i][n - 1][n - 1] for i in range(3)))
+print(sum(dp[n - 1][n - 1][i] for i in range(3)))
