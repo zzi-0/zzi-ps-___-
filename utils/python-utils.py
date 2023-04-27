@@ -2,6 +2,7 @@
 # NOTE
 arr = [[0,0,3],[0,0,46],[0,0,2],[0,0,1]]
 arr.sort(key=lambda x:x[2],reverse=True)
+arr.sort(key=lambda x:(x[2],x[1]),reverse=True)
 print(arr) # [[0, 0, 46], [0, 0, 3], [0, 0, 2], [0, 0, 1]]
 
 # 리스트 관련 메서드
