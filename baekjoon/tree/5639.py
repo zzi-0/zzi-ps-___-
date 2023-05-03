@@ -1,44 +1,30 @@
 import sys
-nodes = list(map(int, sys.stdin.readline().split()))
+sys.setrecursionlimit(10 ** 9)
+input = sys.stdin.readline
 
-class Node:
-    def __init__(self,num):
-        self.num = num
-        self.left = None
-        self.right = None
+nodes = []
+while True:
+    try:
+        nodes.append(int(input()))
+    except:
+        break
 
-def add_node(parent, node):
-    if parent.num < node.num:
-        if parent.right:
-            add_node(parent.right, node)
-        else:
-            parent.right = node
-    else:
-        if parent.left:
-            add_node(parent.left, node)
-        else:
-            parent.left = node 
+def post_order(start,end):
+    if start > end:
+        return
+    mid = end + 1
+    for i in range(start+1, end+1):
+        if nodes[i] > nodes[start]:
+            mid = i
+            break
+    
+    post_order(start+1,mid-1)
+    post_order(mid,end)
 
-def print_node(node):
-    if node.left:
-        print_node(node.left)
-    if node.right:
-        print_node(node.right)
-    print(node.num)
+    print(nodes[start])
 
 
-node_list = []
-for i in range(len(nodes)):
-    if i == 0:
-        root = Node(nodes[0])
-        node_list.append(root)
-    else:
-        node = Node(nodes[i])
-        node_list.append(node)
-        add_node(root, node)
-
-print_node(root)
-
+post_order(0, len(nodes) - 1)
 
 
 
