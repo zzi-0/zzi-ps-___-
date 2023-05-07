@@ -1,29 +1,20 @@
+
 def solution(scores):
     answer = 1
-    n = len(scores)
-    out = [0] * n
-    score = sum(scores[0])
-
-    for i in range(n):
-        [i_a, i_b] = scores[i]
-        for j in range(i):
-            [j_a, j_b] = scores[j]
-            if i_a < j_a and i_b < j_b:
-                out[i] = 1
-                break
-        for j in range(i+1,n):
-            [j_a, j_b] = scores[j]
-            if i_a < j_a and i_b < j_b:
-                out[i] = 1
-                break
-        if i == 0: 
-            if out[0] == 1:
-                return -1
-        else:
-            if score < sum(scores[i]) and out[i] == 0:
-                answer += 1
-
+    target = scores[0]
+    target_sum = sum(target)
+    scores.sort(key=lambda x:(-x[0], x[1]))
+    before = 0
     
+    for score in scores:
+        if score[0] > target[0] and score[1] > target[1]:
+            return -1
+        if before <= score[1]:
+            if target_sum < sum(score):
+                answer += 1
+            before = score[1]
+
+
     return answer
 
-print(solution([[2,2],[1,4],[3,2],[3,2],[1,1]]))
+print(solution([[3,2],[1,1],[7,2],[3,2],[5,1]]))
