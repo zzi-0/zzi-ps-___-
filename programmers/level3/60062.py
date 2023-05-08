@@ -1,47 +1,37 @@
-import time
-from collections import deque
-
-class LoopBreak(Exception):
-    pass
-
+from itertools import permutations
+import math
 
 def solution(n, weak, dist):
-    answer = -1
-    dist.sort(reverse=True)
-    w_check = [0] * (n)
-    d_check = [0] * len(dist)
+    min_count = math.inf
+    weak_len = len(weak)
+    weak = weak + [w + n for w in weak]
 
-    for w in weak:
-        w_check[w] = 1
-
-    queue = deque()
-    queue.append((w_check,d_check))
-
-    while len(queue):
-        try:
-            w_check,d_check = queue.popleft()
-            for i in range(n):
-                for j in range(len(dist)):
-                    if w_check[i] == 1 and d_check[j] == 0:
-                        w_check_copy = w_check[:]
-                        d_check_copy = d_check[:]
-                        for k in range(i,i+dist[j]+1):
-                            w_check_copy[k%n-1] = 0
-                        d_check_copy[j] = 1
-                        if not 1 in w_check_copy:
-                            answer = sum(d_check_copy)
-                            raise LoopBreak()
-                        queue.append((w_check_copy,d_check_copy))
-        except LoopBreak:
-            break
-    return answer
+    for start in range(weak_len):
+        for friends in list(permutations(dist, len(dist))):
+            # 몇 번 째 친구인지
+            count = 1
+            # 현재 위치의 인덱스
+            pos = start
+            for i in range(1, weak_len):
+                next_pos = start + i
+                diff = weak[next_pos] - weak[pos]
+                if diff > friends[count-1]:
+                    pos = next_pos
+                    count += 1
+                    if count > len(dist):
+                        break
+        
+            if count <= len(dist):
+                min_count = min(count, min_count)
     
-start = time.time()
+    if min_count == math.inf:
+        return -1
+    else:
+        return min_count
+    
+
+print(solution(12, [1, 5, 6, 10], [1, 2, 3, 4]))
 print(solution(	12, [1, 3, 4, 9, 10], [3, 5, 7]))
-end = time.time()
-
-print(end - start)
-
 
 """ 0 1 2 3 4 5 6 7 8 9 10 11
 0,1,0,0,0,1,1,0,0,0, 1, 0 """
