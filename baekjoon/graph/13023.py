@@ -3,12 +3,12 @@ input = sys.stdin.readline
 
 """ n,m = map(int,input().split())
 relation = [list(map(int, input().split())) for _ in range(m)]  """
-n,m = 5, 5
+n,m = 6, 5
 relation = [[0, 1],
-[1, 2],
-[2, 3],
-[3, 0],
-[1, 4]]
+[0, 2],
+[0, 3],
+[0, 4],
+[0, 5]]
 
 is_relation = False
 graph = [[] for _ in range(n)]
@@ -19,25 +19,22 @@ for [r1, r2] in relation:
 
 
 def dfs(v,level):
-    global is_relation
     if level == 5:
-        is_relation = True
-        return
+        return True
     else:
         for r in graph[v]:
             if not visited[r]:
                 visited[r] = 1
-                dfs(r,level+1)
+                if dfs(r,level+1):
+                    return True
                 visited[r] = 0
+    return False
 
 for i in range(n):
-    if is_relation:
-        break
     visited = [0] * n
     visited[i] = 1
-    dfs(i,1)
-
-if is_relation:
-    print("1")
+    if dfs(i,1):
+        print('1')
+        break
 else:
-    print("0")
+    print('0')
