@@ -21,18 +21,18 @@ def solution():
     dp = [0 for i in range(N)]
     
     def dfs(here):
-        temp=[]
+        subordinate=[]
        
-        for slave in tree[here]:# 내 부하들을 대상으로
-            dfs(slave) #leaf 노드까지 내려가준다.
-            temp.append(dp[slave]) #부하 놈들이 소식을 전파하는데 걸리는 시간을 담아준다.
+        for sub in tree[here]: # 내 부하들을 대상으로
+            dfs(sub) # leaf 노드까지 내려가준다.
+            subordinate.append(dp[sub]) # 부하들이 소식을 전파하는데 걸리는 시간을 담아준다.
         
-        if temp: # 만약 부하가 있다면 부하 놈들중 시간이 많이 걸리는 순으로 뉴스를 전달해줘야 전체 시간을 아낄 수 있다. 그래서 정렬 후 이번 단계에서 걸리는 시간을 더해줬다. 
-            temp.sort(reverse=True) #시간 정보를 담은 리스트를 정렬 해준다.
-            #서브트리에 전파하는 시간 + 이번 단계에서 걸리는 시간(i+1) : 첫번쨰 친구는 1 두번째 친구는 2.. n번째 친구는 n 
-            next_time = [temp[i] + i + 1 for i in range(len(temp))] 
-            #그중에서 가장 큰 걸 더해준다.
-            dp[here] = max(next_time)
+        if subordinate: # 부하가 있다면 
+            subordinate.sort(reverse=True) # 부하들이 소식을 전파하는데 걸리는 시간을 정렬 해준다.
+
+            # 오래 걸리는 부하들부터 전파한다. 
+            for i in range(len(subordinate)):
+                dp[here] = max(dp[here], subordinate[i] + i + 1)
 
     dfs(0)
     print(dp[0])
