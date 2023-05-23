@@ -23,11 +23,9 @@ def dfs(i,d):
     # 톱니바퀴의 오른쪽
     if i+1 < 4 and gear[i+1][6] != gear[i][2] and check[i+1] == 0:
         dfs(i+1,-d)
-        path.append([i+1,-d])
     # 톱니바퀴의 왼쪽
     if i-1 >= 0 and gear[i-1][2] != gear[i][6] and check[i-1] == 0:
         dfs(i-1,-d)
-        path.append([i-1,-d])
 
 for [i,d] in r:
     check = [0,0,0,0]
@@ -40,7 +38,7 @@ for [i,d] in r:
             rotate_left(i)
 
 for i in range(4):
-    if gear[i][0] == 0:
+    if gear[i][0] == '0':
         ans += 0
     else:
         ans += 2**i
