@@ -5,16 +5,19 @@ from collections import deque
 n = int(sys.stdin.readline().strip())
 population = [int(x) for x in sys.stdin.readline().split()]
 graph = [[] for _ in range(n+1)]
+ans = -1
+items = [i for i in range(1, n+1)]
 
 for i in range(n):
     x = list(map(int, input().split()))
     for j in x[1:]:
         graph[i+1].append(j)
 
-ans = 10000000
-items = [i for i in range(1, n+1)] 
-
-def is_connected(visited):
+def is_connected(have):
+    queue = deque()
+    queue.append(have[0])
+    visited = [have[0]]
+    
     while queue:
         start = queue.popleft()
         for g in graph[start]:
@@ -24,31 +27,17 @@ def is_connected(visited):
     return len(have) == len(visited)
 
 # population에서 10C2 ~ 10C5까지 모든 조합을 구한다.
-for i in range(2,n//2+1):
+for i in range(1, n//2+1):
     combi = list(combinations(items, i))
-    for c in combi:
-        sum1 = 0
-        for k in c:
-            #print(population[k-1])
-            sum1 += population[k-1]
-        sum2 = sum(population)  - sum1
-        if ans != -1 and ans < abs(sum2 - sum1):
-            continue
-        queue = deque()
-        have = c
-        queue.append(have[0])
-        if not is_connected([have[0]]):
-            continue
-
-        queue = deque()
-        have = list(set(items) - set(c))
-        queue.append(have[0])
-        if is_connected([have[0]]):
-            ans = abs(sum2 - sum1)
-
-# 각 조합마다 graph를 탐색하여 연결되어 있는지 확인한다. 단, 최소값 보다 큰것들은 확인하지 않는다.
-# 연결되어 있으면 최소값을 갱신한다.
-
-
+    for a in combi:
+        b = list(set(items) - set(a))
+        if is_connected(a) and is_connected(b):
+            sum1 = 0
+            sum2 = 0
+            for k in a:
+                sum1 += population[k-1]
+            for k in b:
+                sum2 += population[k-1]
+            if ans == -1 or ans > abs(sum2 - sum1):
+                ans = abs(sum2 - sum1)
 print(ans)
-
